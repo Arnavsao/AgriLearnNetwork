@@ -192,61 +192,26 @@ form.addEventListener('submit', (event) => {
   const feedbackForm = document.getElementById("feedback-form");
   const submitButton = document.querySelector("#feedback-form button[type='submit']");
   
-  // Event listener for form submission
-  document.addEventListener('DOMContentLoaded', function() {
-    function allFieldsFilled() {
+  
+  function allFieldsFilled() {
       const inputs = feedbackForm.querySelectorAll("input[type='text'], input[type='email'], textarea");
       for (let input of inputs) {
-        if (!input.value.trim()) {
-          return false;
-        }
+          if (!input.value.trim()) {
+              return false;
+          }
       }
       return true;
-    }
+  }
   
-    function ratingSelected() {
-      const stars = document.querySelectorAll('.rating__star');
-      for (let star of stars) {
-        if (star.classList.contains('fas')) { 
-          return true;
-        }
-      }
-      return false;
-    }
-  
-    const feedbackForm = document.getElementById('feedback-form');
-  
-    feedbackForm.addEventListener('submit', function(event) {
-      event.preventDefault();
-      const thankYouMessage = document.getElementById('thank-you-message');
-      const errorMessage = document.getElementById('error-message');
-      if (allFieldsFilled() && ratingSelected()) {
-        thankYouMessage.style.display = 'block';
-        errorMessage.style.display = 'none';
-        setTimeout(function() {
-          thankYouMessage.style.display = 'none';
-        },3000);
-        feedbackForm.reset();
+  // Event listener for form submission
+  feedbackForm.addEventListener("submit", function(e) {
+      e.preventDefault(); // Prevent the default form submission behavior
+      if (allFieldsFilled()) {
+          alert("Thank you for your feedback! Your message has been submitted.");
       } else {
-        thankYouMessage.style.display = 'none';
-        errorMessage.style.display = 'block';
-        setTimeout(function() {
-          errorMessage.style.display = 'none';
-        },3000);
-        feedbackForm.reset();
+          alert("Please fill in all fields before submitting.");
       }
-    });
-    document.querySelector('.close').addEventListener('click', function() {
-      document.getElementById('modal').style.display = 'none';
-    });
-    // Optional: if you want to close the modal when clicking outside of it
-    window.onclick = function(event) {
-      if (event.target == document.getElementById('modal')) {
-        document.getElementById('modal').style.display = 'none';
-      }
-    };
   });
-  
   
   // Event listener for form input fields
   feedbackForm.addEventListener("input", function() {
